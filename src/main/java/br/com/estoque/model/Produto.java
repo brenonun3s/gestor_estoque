@@ -1,5 +1,6 @@
 package br.com.estoque.model;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 import jakarta.persistence.Entity;
@@ -18,17 +19,27 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Item {
+public class Produto {
 
  @Id
  @GeneratedValue(strategy = GenerationType.UUID)
 
  private UUID id;
 
- private String descricao;
+ private String sku;
+
+ private String nome;
 
  private Integer estoque;
 
  private String marca;
+
+ private Integer quantidadeMinima;
+
+ private Double preco;
+
+ private Boolean status;
+
+ private LocalDate dataValidade;
 
 }

@@ -27,7 +27,7 @@ public class Estoque {
 
  private Integer quantidade;
 
- private Item item;
+ private Produto produto;
 
  private LocalDateTime ultimo_lancamento;
 

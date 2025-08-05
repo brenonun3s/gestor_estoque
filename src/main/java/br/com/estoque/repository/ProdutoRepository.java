@@ -5,9 +5,9 @@ import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import br.com.estoque.model.Solicitacao;
+import br.com.estoque.model.Produto;
 
 @Repository
-public interface SolicitacaoRepository extends JpaRepository<Solicitacao, UUID>{
+public interface ProdutoRepository extends JpaRepository<Produto, UUID>{
  
 }
