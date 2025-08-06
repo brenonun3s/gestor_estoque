@@ -7,7 +7,15 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class UsuarioService {
- 
+
+ public String login(){
+  return "Usuário logado com sucesso!";
+ }
+
+ public String logout() {
+  return "Usuário deslogado com sucesso!";
+ }
+
  
 
 }

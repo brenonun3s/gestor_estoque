@@ -2,89 +2,87 @@ package br.com.estoque.service;
 
 import java.net.URI;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
-import org.springframework.http.HttpStatus;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.estoque.dto.ProdutoRequestDTO;
 import br.com.estoque.dto.ProdutoResponseDTO;
+import br.com.estoque.dto.ProdutoUpdateDTO;
 import br.com.estoque.mapper.ProdutoMapper;
 import br.com.estoque.model.Produto;
 import br.com.estoque.repository.ProdutoRepository;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class ProdutoService {
 
- private final ProdutoRepository produtoRepository;
+  private final ProdutoRepository produtoRepository;
 
- private final ProdutoMapper produtoMapper;
+  private final ProdutoMapper produtoMapper;
 
-   //TODO: ASSIM QUE IMPLEMENTADO SEGURANÇA, REFATORAR
-   //TODO: METODO PODE SER MAIS ENXUTO, REFATORAR
- @Transactional
+  @Transactional
   public ResponseEntity<ProdutoResponseDTO> cadastrar(ProdutoRequestDTO dto) {
     try {
       Produto produto = produtoMapper.toEntity(dto);
-      produto.setDataValidade(dto.getDataValidade());
-      produto.setEstoque(dto.getEstoque());
-      produto.setMarca(dto.getMarca());
-      produto.setNome(dto.getNome());
-      produto.setPreco(dto.getPreco());
-      produto.setQuantidadeMinima(dto.getQuantidadeMinima());
-      produto.setSku(dto.getSku());
-      produto.setStatus(dto.getStatus());
-
       Produto produtoSalvo = produtoRepository.save(produto);
-
-      ProdutoResponseDTO responseDTO = produtoMapper.toResponseDTO(produtoSalvo);
-
       URI uri = URI.create("/produtos/" + produtoSalvo.getId());
-      
-      return ResponseEntity.created(uri).body(responseDTO);
-
-  }
-  catch(Exception e){
-   return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-  }
-
-
-  }
-
-  //TODO: ASSIM QUE IMPLEMENTADO SEGURANÇA, REFATORAR
-  @Transactional(readOnly = true)
-  public List<ProdutoResponseDTO> listarProdutos(){
-    List<Produto> produtos = produtoRepository.findAll();
-
-    return produtos.stream().map(produtoMapper::toResponseDTO)
-    .collect(Collectors.toList());
-    
-  }
-
-  //TODO: PENDENTE -> DESENVOLVER A LOGICA DESSE METODO
-  @Transactional
-  public ProdutoResponseDTO atualizarProduto(){
-    try {
-      
+      return ResponseEntity.created(uri).body(produtoMapper.toResponseDTO(produtoSalvo));
     } catch (Exception e) {
-
+      return ResponseEntity.internalServerError().build();
     }
   }
 
-  //TODO: TIVE ESSA IDEIA, ESTOU ESTUDANDO COMO FAZER -> ASSIM QUE POSSIVEL, VOU IMPLEMENTAR
-  public void importarProdutosViaCSV(){
+  @Transactional
+  public ProdutoResponseDTO atualizarProduto(UUID id, @Valid ProdutoUpdateDTO dto) {
+    try {
+      Produto produtoExistente = produtoRepository.findById(id)
+          .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
+
+      produtoMapper.updateEntityFromDTO(dto, produtoExistente);
+
+      Produto produtoAtualizado = produtoRepository.save(produtoExistente);
+
+      return produtoMapper.toResponseDTO(produtoAtualizado);
+    } catch (RuntimeException e) {
+      throw new RuntimeException("Erro ao atualizar o produto: " + e.getMessage(), e);
+    }
+  }
+
+  // TODO: ASSIM QUE IMPLEMENTADO SEGURANÇA, REFATORAR
+  @Transactional(readOnly = true)
+  public List<ProdutoResponseDTO> listarProdutos() {
+    List<Produto> produtos = produtoRepository.findAll();
+
+    return produtos.stream().map(produtoMapper::toResponseDTO)
+        .collect(Collectors.toList());
 
   }
 
-  //TODO: DESENVOLVER LOGICA
-  public void deletarProduto(){
+  // TODO: TIVE ESSA IDEIA, ESTOU ESTUDANDO COMO FAZER -> ASSIM QUE POSSIVEL, VOU
+  // IMPLEMENTAR
+  public void importarProdutosViaCSV() {
 
   }
 
+  @Transactional
+  public void deletarProduto(UUID id) {
+    try {
+      Produto produto = produtoRepository.findById(id)
+        .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
 
+      produtoRepository.delete(produto);
+    } catch (DataIntegrityViolationException e) {
+      throw new RuntimeException("Erro ao deletar o produto: Violação de integridade referencial.", e);
+    } catch (RuntimeException e) {
+      throw new RuntimeException("Erro ao deletar o produto: " + e.getMessage(), e);
+    }
+  }
 
 }

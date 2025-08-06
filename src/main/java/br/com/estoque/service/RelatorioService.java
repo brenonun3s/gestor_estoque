@@ -5,7 +5,20 @@ import org.springframework.stereotype.Service;
 @Service
 public class RelatorioService {
 
- //TODO: PENSAR EM UNS RELATORIOS PARA O SISTEMA
+ public String relatorioSaidas() {
+  // Lógica para gerar o relatório
+  return "Relatório gerado com sucesso!";
+ }
+
+ public String relatorioEntradas() {
+  // Lógica para gerar o relatório
+  return "Relatório gerado com sucesso!";
+ }
+
+ public String relatorioGeral(){
+  // Lógica para gerar o relatório geral
+  return "Relatório geral gerado com sucesso!";
+ }
 
  
 }
