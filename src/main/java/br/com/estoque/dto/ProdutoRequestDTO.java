@@ -1,17 +1,35 @@
 package br.com.estoque.dto;
 
 import java.time.LocalDate;
+import jakarta.validation.constraints.*;
 
-import lombok.Data;
+public record ProdutoRequestDTO(
+    @NotBlank(message = "SKU é obrigatório")
+    String sku,
 
-@Data
-public class ProdutoRequestDTO {
-    private String sku;
-    private String nome;
-    private Integer estoque;
-    private String marca;
-    private Integer quantidadeMinima;
-    private Double preco;
-    private Boolean status;
-    private LocalDate dataValidade;
-}
+    @NotBlank(message = "Nome é obrigatório")
+    String nome,
+
+    @NotNull(message = "Estoque é obrigatório")
+    @Min(value = 0, message = "Estoque não pode ser negativo")
+    Integer estoque,
+
+    @NotBlank(message = "Marca é obrigatória")
+    String marca,
+
+    @NotNull(message = "Quantidade mínima é obrigatória")
+    @Min(value = 0, message = "Quantidade mínima não pode ser negativa")
+    Integer quantidadeMinima,
+
+    @NotNull(message = "Preço é obrigatório")
+    @DecimalMin(value = "0.0", inclusive = false, message = "Preço deve ser maior que zero")
+    Double preco,
+
+    @NotNull(message = "Status é obrigatório")
+    Boolean status,
+
+    @NotNull(message = "Data de validade é obrigatória")
+    @FutureOrPresent(message = "Data de validade deve ser hoje ou futura")
+    LocalDate dataValidade
+
+) {}

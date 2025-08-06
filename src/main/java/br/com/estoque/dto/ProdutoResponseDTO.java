@@ -1,19 +1,15 @@
 package br.com.estoque.dto;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
-import lombok.Data;
+public record ProdutoResponseDTO(
+        String sku,
+        String nome,
+        Integer estoque,
+        String marca,
+        Integer quantidadeMinima,
+        Double preco,
+        Boolean status,
+        LocalDate dataValidade) {
 
-@Data
-public class ProdutoResponseDTO {
-    private UUID id;
-    private String sku;
-    private String nome;
-    private Integer estoque;
-    private String marca;
-    private Integer quantidadeMinima;
-    private Double preco;
-    private Boolean status;
-    private LocalDate dataValidade;
 }

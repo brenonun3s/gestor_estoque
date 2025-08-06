@@ -1,12 +1,10 @@
 package br.com.estoque.service;
 
-import java.net.URI;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,24 +26,19 @@ public class ProdutoService {
   private final ProdutoMapper produtoMapper;
 
   @Transactional
-  public ResponseEntity<ProdutoResponseDTO> cadastrar(ProdutoRequestDTO dto) {
-    try {
+  public ProdutoResponseDTO cadastrar(ProdutoRequestDTO dto) {
       Produto produto = produtoMapper.toEntity(dto);
       Produto produtoSalvo = produtoRepository.save(produto);
-      URI uri = URI.create("/produtos/" + produtoSalvo.getId());
-      return ResponseEntity.created(uri).body(produtoMapper.toResponseDTO(produtoSalvo));
-    } catch (Exception e) {
-      return ResponseEntity.internalServerError().build();
-    }
+      return produtoMapper.toResponseDTO(produtoSalvo);
   }
-
+  
   @Transactional
   public ProdutoResponseDTO atualizarProduto(UUID id, @Valid ProdutoUpdateDTO dto) {
     try {
       Produto produtoExistente = produtoRepository.findById(id)
           .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
 
-      produtoMapper.updateEntityFromDTO(dto, produtoExistente);
+      produtoMapper.updateProdutoFromDto(dto, produtoExistente);
 
       Produto produtoAtualizado = produtoRepository.save(produtoExistente);
 
@@ -55,7 +48,6 @@ public class ProdutoService {
     }
   }
 
-  // TODO: ASSIM QUE IMPLEMENTADO SEGURANÇA, REFATORAR
   @Transactional(readOnly = true)
   public List<ProdutoResponseDTO> listarProdutos() {
     List<Produto> produtos = produtoRepository.findAll();
