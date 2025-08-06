@@ -21,7 +21,10 @@ public class EstoqueService {
 public void listarQuantidadeProdutosEstoqueBaixo(){
  System.out.println("Alertas de estoque baixo");
 }
- 
+
+public void registrarSaida(){
+  System.out.println("Saida de produto do estoque");
+}
  
 
 }

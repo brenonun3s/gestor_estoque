@@ -44,7 +44,7 @@ public class ProdutoController {
   return "Produto deletado com sucesso!";
  }
 
-@PostMapping
+@PostMapping("/cadastrar-produtos")
 public ResponseEntity<ProdutoResponseDTO> cadastrar(@Valid @RequestBody ProdutoRequestDTO dto) {
     ProdutoResponseDTO produtoSalvo = service.cadastrar(dto);
     URI uri = URI.create("/produtos/");

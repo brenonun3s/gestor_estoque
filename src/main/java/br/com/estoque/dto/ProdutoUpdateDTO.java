@@ -7,6 +7,9 @@ public record ProdutoUpdateDTO(
     @NotBlank(message = "Nome não pode ser vazio")
     String nome,
 
+    @NotBlank(message = "Marca não pode ser vazio")
+    String marca,
+
     @NotNull(message = "Estoque é obrigatório")
     @Min(value = 0, message = "Estoque não pode ser negativo")
     Integer estoque,
