@@ -1,6 +1,9 @@
 package br.com.estoque.dto;
 
 import java.time.LocalDate;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.validation.constraints.*;
 
 public record ProdutoUpdateDTO(
@@ -30,6 +33,7 @@ public record ProdutoUpdateDTO(
 
     @NotNull(message = "Data de validade é obrigatória")
     @FutureOrPresent(message = "Data de validade deve ser hoje ou no futuro")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     LocalDate dataValidade
 
 ) {}

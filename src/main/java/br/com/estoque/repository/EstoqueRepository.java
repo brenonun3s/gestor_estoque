@@ -8,8 +8,8 @@ import org.springframework.stereotype.Repository;
 import br.com.estoque.model.Estoque;
 
 @Repository
-public interface EstoqueRepository extends JpaRepository<Estoque, UUID>{
+public interface EstoqueRepository extends JpaRepository<Estoque, UUID> {
 
- 
- 
+
+
 }

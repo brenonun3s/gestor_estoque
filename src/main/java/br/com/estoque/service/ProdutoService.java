@@ -4,13 +4,14 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.estoque.dto.ProdutoRequestDTO;
 import br.com.estoque.dto.ProdutoResponseDTO;
 import br.com.estoque.dto.ProdutoUpdateDTO;
+import br.com.estoque.exceptions.ProdutoJaCadastradoException;
+import br.com.estoque.exceptions.ProdutoNaoLocalizadoException;
 import br.com.estoque.mapper.ProdutoMapper;
 import br.com.estoque.model.Produto;
 import br.com.estoque.repository.ProdutoRepository;
@@ -27,33 +28,47 @@ public class ProdutoService {
 
   @Transactional
   public ProdutoResponseDTO cadastrar(ProdutoRequestDTO dto) {
+    if (dto.sku() != null && !produtoRepository.existsBySku(dto.sku())) {
       Produto produto = produtoMapper.toEntity(dto);
       Produto produtoSalvo = produtoRepository.save(produto);
       return produtoMapper.toResponseDTO(produtoSalvo);
+    }
+    throw new ProdutoJaCadastradoException("Produto já cadastrado com o SKU: " + dto.sku());
   }
-  
+
   @Transactional
   public ProdutoResponseDTO atualizarProduto(UUID id, @Valid ProdutoUpdateDTO dto) {
-    try {
-      Produto produtoExistente = produtoRepository.findById(id)
-          .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
 
-      produtoMapper.updateProdutoFromDto(dto, produtoExistente);
+    Produto produtoExistente = produtoRepository.findById(id)
+        .orElseThrow(() -> new ProdutoNaoLocalizadoException("Produto não encontrado"));
 
-      Produto produtoAtualizado = produtoRepository.save(produtoExistente);
+    produtoMapper.updateProdutoFromDto(dto, produtoExistente);
 
-      return produtoMapper.toResponseDTO(produtoAtualizado);
-    } catch (RuntimeException e) {
-      throw new RuntimeException("Erro ao atualizar o produto: " + e.getMessage(), e);
-    }
+    Produto produtoAtualizado = produtoRepository.save(produtoExistente);
+
+    return produtoMapper.toResponseDTO(produtoAtualizado);
   }
 
   @Transactional(readOnly = true)
   public List<ProdutoResponseDTO> listarProdutos() {
-    List<Produto> produtos = produtoRepository.findAll();
+    List<Produto> produtos = produtoRepository.findAllByStatusTrue();
 
-    return produtos.stream().map(produtoMapper::toResponseDTO)
+    if (produtos.isEmpty()) {
+      throw new ProdutoNaoLocalizadoException("Nenhum produto encontrado.");
+    }
+
+    return produtos.stream()
+        .map(produtoMapper::toResponseDTO)
         .collect(Collectors.toList());
+  }
+
+  @Transactional
+  public void deletarProduto(UUID id) {
+
+    Produto produto = produtoRepository.findById(id)
+        .orElseThrow(() -> new ProdutoNaoLocalizadoException("Produto não encontrado com esse ID" + id));
+
+    produtoRepository.delete(produto);
 
   }
 
@@ -61,20 +76,6 @@ public class ProdutoService {
   // IMPLEMENTAR
   public void importarProdutosViaCSV() {
 
-  }
-
-  @Transactional
-  public void deletarProduto(UUID id) {
-    try {
-      Produto produto = produtoRepository.findById(id)
-        .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
-
-      produtoRepository.delete(produto);
-    } catch (DataIntegrityViolationException e) {
-      throw new RuntimeException("Erro ao deletar o produto: Violação de integridade referencial.", e);
-    } catch (RuntimeException e) {
-      throw new RuntimeException("Erro ao deletar o produto: " + e.getMessage(), e);
-    }
   }
 
 }

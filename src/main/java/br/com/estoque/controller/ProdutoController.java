@@ -6,8 +6,11 @@ import java.util.UUID;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,30 +28,32 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ProdutoController {
 
- private final ProdutoService service;
+  private final ProdutoService service;
 
- @RequestMapping("/listar-produtos")
- public List<ProdutoResponseDTO> listar() {
-  return service.listarProdutos();
- }
+  @GetMapping("/listar-produtos")
+  public ResponseEntity<List<ProdutoResponseDTO>> listar() {
+    List<ProdutoResponseDTO> produtos = service.listarProdutos();
+    return ResponseEntity.ok(produtos);
+  }
 
- @RequestMapping("atualizar-produto/{id}")
- public ProdutoResponseDTO atualizarProduto(@PathVariable UUID id,
-   @RequestBody @Valid ProdutoUpdateDTO dto) {
-  return service.atualizarProduto(id, dto);
- }
+  @PutMapping("atualizar-produto/{id}")
+  public ResponseEntity<Void> atualizarProduto(@PathVariable UUID id,
+      @RequestBody @Valid ProdutoUpdateDTO dto) {
+    service.atualizarProduto(id, dto);
+    return ResponseEntity.noContent().build();
+  }
 
- @RequestMapping("/deletar-produto/{id}")
- public String deletarProduto(@PathVariable UUID id) {
-  service.deletarProduto(id);
-  return "Produto deletado com sucesso!";
- }
+  @DeleteMapping("/deletar-produto/{id}")
+  public ResponseEntity<Void> deletarProduto(@PathVariable UUID id) {
+    service.deletarProduto(id);
+    return ResponseEntity.ok().build();
+  }
 
-@PostMapping("/cadastrar-produtos")
-public ResponseEntity<ProdutoResponseDTO> cadastrar(@Valid @RequestBody ProdutoRequestDTO dto) {
+  @PostMapping("/cadastrar-produtos")
+  public ResponseEntity<ProdutoResponseDTO> cadastrar(@Valid @RequestBody ProdutoRequestDTO dto) {
     ProdutoResponseDTO produtoSalvo = service.cadastrar(dto);
     URI uri = URI.create("/produtos/");
     return ResponseEntity.created(uri).body(produtoSalvo);
-}
+  }
 
 }

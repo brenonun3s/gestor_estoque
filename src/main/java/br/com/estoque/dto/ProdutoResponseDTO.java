@@ -2,6 +2,8 @@ package br.com.estoque.dto;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public record ProdutoResponseDTO(
         String sku,
         String nome,
@@ -10,6 +12,7 @@ public record ProdutoResponseDTO(
         Integer quantidadeMinima,
         Double preco,
         Boolean status,
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
         LocalDate dataValidade) {
 
 }
