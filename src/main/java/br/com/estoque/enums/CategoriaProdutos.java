@@ -3,7 +3,7 @@ package br.com.estoque.enums;
 public enum CategoriaProdutos {
  ELETRONICOS,
  ROUPAS,
- CASAEJARDIM,
+ CASA_E_JARDIM,
  LIVROS,
  ESPORTES
  

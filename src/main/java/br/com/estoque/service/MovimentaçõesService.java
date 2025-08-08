@@ -12,6 +12,10 @@ public class MovimentaçõesService {
    System.out.println("últimas movimentações");
   }
 
+  public void registrarMovimentacao() {
+   System.out.println("registrar movimentação");
+  }
+
   
 
 }

@@ -3,43 +3,44 @@ package br.com.estoque.model;
 import java.time.LocalDate;
 import java.util.UUID;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import br.com.estoque.enums.CategoriaProdutos;
+
+import java.util.List;
+
+import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
-@Table(name = "tb_produtos")
-@AllArgsConstructor
-@NoArgsConstructor
+@Table(name = "tb_produto")
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Produto {
 
- @Id
- @GeneratedValue(strategy = GenerationType.UUID)
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
- private UUID id;
+    @Column(nullable = false, unique = true)
+    private String sku;
 
- private String sku;
+    @Column(nullable = false)
+    private String nome;
 
- private String nome;
+    private String marca;
 
- private Integer estoque;
+    @Column(name = "quantidade_minima")
+    private Integer quantidadeMinima;
 
- private String marca;
+    private Double preco;
 
- private Integer quantidadeMinima;
+    private Boolean status;
 
- private Double preco;
+    private LocalDate dataValidade;
 
- private Boolean status;
+    @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Estoque> estoques;
 
- private LocalDate dataValidade;
-
+    private CategoriaProdutos categoria;
 }
