@@ -43,4 +43,7 @@ public class Produto {
     private List<Estoque> estoques;
 
     private CategoriaProdutos categoria;
+
+    @Column(name = "quantidade_estoque")
+    private Integer estoque;
 }
