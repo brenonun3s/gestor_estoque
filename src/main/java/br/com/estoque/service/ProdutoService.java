@@ -49,9 +49,11 @@ public class ProdutoService {
     return produtoMapper.toResponseDTO(produtoAtualizado);
   }
 
+
+  //NESSE METODO, TEM QUE TRAZER TODOS QUE ESTÃO ATIVOS
   @Transactional(readOnly = true)
   public List<ProdutoResponseDTO> listarProdutos() {
-    List<Produto> produtos = produtoRepository.findAllByStatusTrue();
+    List<Produto> produtos = produtoRepository.findAll();
 
     if (produtos.isEmpty()) {
       throw new ProdutoNaoLocalizadoException("Nenhum produto encontrado.");
@@ -72,6 +74,24 @@ public class ProdutoService {
 
   }
 
+  //TODO: ESSE METODO VAI TER QUE RETORNAR APENAS A QUANTIDADE DE ITENS ATIVOS - NO MOMENTO ESTÁ RETORNANDO A SOMA EM QUANTIDADE (CORRIGIR)
+  @Transactional(readOnly = true)
+  public Integer listarQuantidadeItensAtivos() {
+      List<Produto> produtos = produtoRepository.findAllByStatusTrue();
+  
+      if (produtos.isEmpty()) {
+          throw new ProdutoNaoLocalizadoException("Nenhum produto encontrado.");
+      }
+  
+      int totalQuantidade = produtos.stream()
+          .mapToInt(Produto::getEstoque)
+          .sum();
+  
+      return Integer.valueOf(totalQuantidade);
+  }
+  
+
+  
   // TODO: TIVE ESSA IDEIA, ESTOU ESTUDANDO COMO FAZER -> ASSIM QUE POSSIVEL, VOU
   // IMPLEMENTAR
   public void importarProdutosViaCSV() {

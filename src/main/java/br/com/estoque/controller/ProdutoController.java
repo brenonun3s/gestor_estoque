@@ -22,6 +22,7 @@ import br.com.estoque.service.ProdutoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
+
 @RestController
 @RequestMapping("/produtos")
 @RequiredArgsConstructor
@@ -55,5 +56,12 @@ public class ProdutoController {
     URI uri = URI.create("/produtos/");
     return ResponseEntity.created(uri).body(produtoSalvo);
   }
+
+  @GetMapping("/produtos-status-ativos")
+  public ResponseEntity<Integer> getMethodName() {
+    Integer quantidadeProdutos = service.listarQuantidadeItensAtivos();
+    return ResponseEntity.ok().body(quantidadeProdutos);
+  }
+  
 
 }
