@@ -33,7 +33,7 @@ public class ProdutoController {
 
   @GetMapping("/listar-produtos")
   public ResponseEntity<List<ProdutoResponseDTO>> listar() {
-    List<ProdutoResponseDTO> produtos = service.listarProdutos();
+    List<ProdutoResponseDTO> produtos = service.listarTodosProdutos();
     return ResponseEntity.ok(produtos);
   }
 
@@ -58,8 +58,8 @@ public class ProdutoController {
   }
 
   @GetMapping("/produtos-status-ativos")
-  public ResponseEntity<Integer> getMethodName() {
-    Integer quantidadeProdutos = service.listarQuantidadeItensAtivos();
+  public ResponseEntity<Long> getMethodName() {
+    Long quantidadeProdutos = service.listarQuantidadeItensAtivos();
     return ResponseEntity.ok().body(quantidadeProdutos);
   }
   

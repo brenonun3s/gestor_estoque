@@ -50,9 +50,8 @@ public class ProdutoService {
   }
 
 
-  //NESSE METODO, TEM QUE TRAZER TODOS QUE ESTÃO ATIVOS
   @Transactional(readOnly = true)
-  public List<ProdutoResponseDTO> listarProdutos() {
+  public List<ProdutoResponseDTO> listarTodosProdutos() {
     List<Produto> produtos = produtoRepository.findAll();
 
     if (produtos.isEmpty()) {
@@ -76,18 +75,16 @@ public class ProdutoService {
 
   //TODO: ESSE METODO VAI TER QUE RETORNAR APENAS A QUANTIDADE DE ITENS ATIVOS - NO MOMENTO ESTÁ RETORNANDO A SOMA EM QUANTIDADE (CORRIGIR)
   @Transactional(readOnly = true)
-  public Integer listarQuantidadeItensAtivos() {
-      List<Produto> produtos = produtoRepository.findAllByStatusTrue();
+  public Long listarQuantidadeItensAtivos() {
+      Long quantidade = produtoRepository.countDistinctSku();
   
-      if (produtos.isEmpty()) {
+      if (quantidade == 0) {
           throw new ProdutoNaoLocalizadoException("Nenhum produto encontrado.");
       }
+
+      return quantidade;
   
-      int totalQuantidade = produtos.stream()
-          .mapToInt(Produto::getEstoque)
-          .sum();
-  
-      return Integer.valueOf(totalQuantidade);
+
   }
   
 
