@@ -76,13 +76,17 @@ public class ProdutoService {
   //TODO: ESSE METODO VAI TER QUE RETORNAR APENAS A QUANTIDADE DE ITENS ATIVOS - NO MOMENTO ESTÁ RETORNANDO A SOMA EM QUANTIDADE (CORRIGIR)
   @Transactional(readOnly = true)
   public Long listarQuantidadeItensAtivos() {
-      Long quantidade = produtoRepository.countDistinctSku();
+      List<Produto> produtos = produtoRepository.findAllByStatusTrue();
   
-      if (quantidade == 0) {
+      if (produtos.isEmpty()) {
           throw new ProdutoNaoLocalizadoException("Nenhum produto encontrado.");
       }
 
-      return quantidade;
+      Long totalQuantidade = produtos.stream()
+      .mapToInt(Produto::getEstoque)
+      .count();
+
+      return totalQuantidade;
   
 
   }
