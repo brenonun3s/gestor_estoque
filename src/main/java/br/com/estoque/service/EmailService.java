@@ -16,10 +16,10 @@ public class EmailService {
 
  public void sendEmail(Email email){
   var message = new SimpleMailMessage();
-  message.setFrom("no-reply@autodominio.com.br");
+  message.setFrom("zzzbrenozzz@gmail.com");
   message.setTo(email.to());
   message.setSubject(email.subject());
-  message.setText(email.body());
+  message.setText(email.body()); 
   mailSender.send(message);
  }
  

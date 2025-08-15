@@ -19,7 +19,6 @@ public class EmailController {
  
  private final EmailService emailService;
 
- // TODO: SERÁ UM ENDPOINT PARA ENVIAR EMAILS - NECESSÁRIO CONFIGURAR O SERVIDOR DE EMAIL
  @PostMapping("/enviar")
  public ResponseEntity<String> enviarEmail(@RequestBody Email email) {
      emailService.sendEmail(email);
