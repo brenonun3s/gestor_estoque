@@ -9,6 +9,7 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.server.ResponseStatusException;
 
 @RestControllerAdvice
 
@@ -39,4 +40,24 @@ public class GlobalExceptionHandler {
   return ResponseEntity.badRequest().body(response);
  }
 
+
+ @ExceptionHandler(ResponseStatusException.class)
+    public ResponseEntity<Map<String, Object>> handleResponseStatusException(ResponseStatusException ex) {
+        Map<String, Object> body = new HashMap<>();
+        body.put("erro", "Falha ao consultar BrasilAPI");
+        body.put("detalhe", ex.getReason()); // aqui você pode filtrar ou traduzir a mensagem
+        body.put("status", ex.getStatusCode().value());
+
+        return ResponseEntity.status(ex.getStatusCode()).body(body);
+    }
+
+    @ExceptionHandler(CnpjNaoLocalicazadoException.class)
+    public ResponseEntity<Map<String, Object>> handleCnpjInvalido(CnpjNaoLocalicazadoException ex) {
+        Map<String, Object> body = new HashMap<>();
+        body.put("erro", "CNPJ inválido");
+        body.put("detalhe", ex.getMessage());
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(body);
+    }
 }
+
