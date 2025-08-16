@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.estoque.model.Email;
 import br.com.estoque.service.EmailService;
+import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,12 @@ public class EmailController {
  @PostMapping("/enviar")
  public ResponseEntity<String> enviarEmail(@RequestBody Email email) {
      emailService.sendEmail(email);
+     return ResponseEntity.ok("Email enviado com sucesso para " + email.to());
+ }
+
+ @PostMapping("/enviar-anexo")
+ public ResponseEntity<String> enviarEmailComAnexo(@RequestBody Email email) throws MessagingException {
+     emailService.enviarEmailComAnexo(email);
      return ResponseEntity.ok("Email enviado com sucesso para " + email.to());
  }
  
