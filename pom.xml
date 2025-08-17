@@ -107,6 +107,20 @@
    <artifactId>caffeine</artifactId>
   </dependency>
 
+    <!-- JasperReports -->
+    <dependency>
+        <groupId>net.sf.jasperreports</groupId>
+        <artifactId>jasperreports</artifactId>
+        <version>6.21.0</version>
+    </dependency>
+
+    <!-- Para suportar fontes -->
+    <dependency>
+        <groupId>net.sf.jasperreports</groupId>
+        <artifactId>jasperreports-fonts</artifactId>
+        <version>6.21.0</version>
+    </dependency>
+
 	</dependencies>
 
 	<build>
