@@ -11,7 +11,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "tb_produto")
+@Table(name = "tb_produtos")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -46,4 +46,5 @@ public class Produto {
 
     @Column(name = "quantidade_estoque")
     private Integer estoque;
+
 }

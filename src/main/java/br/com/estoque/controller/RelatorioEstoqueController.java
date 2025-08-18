@@ -1,4 +1,4 @@
-package br.com.estoque.controller;
+/*package br.com.estoque.controller;
 
 
 import org.springframework.http.HttpHeaders;
@@ -33,3 +33,4 @@ public class RelatorioEstoqueController {
     }
 }
 
+*/

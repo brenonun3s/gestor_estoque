@@ -18,7 +18,7 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
-@Service
+/*@Service
 public class RelatorioEstoqueService {
 
     private final EstoqueRepository estoqueRepository;
@@ -48,3 +48,5 @@ public class RelatorioEstoqueService {
     }
 }
 
+
+*/

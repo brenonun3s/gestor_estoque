@@ -14,7 +14,7 @@ import br.com.estoque.model.Produto;
 
 public interface EstoqueRepository extends CrudRepository<Produto, UUID> {
 
- @Query("""
+ /*@Query("""
      SELECT new br.com.estoque.dto.RelatorioProdutosDTO(
          p.nome,
          p.preco,
@@ -24,4 +24,6 @@ public interface EstoqueRepository extends CrudRepository<Produto, UUID> {
      FROM Produto p
  """)
  List<RelatorioProdutosDTO> gerarRelatorioProdutos();
+}
+  */
 }
