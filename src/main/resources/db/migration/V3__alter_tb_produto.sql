@@ -1,0 +1,2 @@
+ALTER TABLE tb_produto
+ALTER COLUMN categoria TYPE VARCHAR;

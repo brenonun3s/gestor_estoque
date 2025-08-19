@@ -5,6 +5,7 @@ public enum CategoriaProdutos {
  ROUPAS,
  CASA_E_JARDIM,
  LIVROS,
- ESPORTES
+ ESPORTES,
+ ALIMENTICIO
  
 }

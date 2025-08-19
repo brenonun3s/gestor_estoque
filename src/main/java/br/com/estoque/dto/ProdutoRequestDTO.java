@@ -25,7 +25,7 @@ public record ProdutoRequestDTO(
     @Min(value = 0, message = "Quantidade mínima não pode ser negativa")
     Integer quantidadeMinima,
 
-    @NotBlank(message = "Categoria de Produtos é Obrigatório")
+    @NotNull(message = "Categoria de Produtos é Obrigatório")
     CategoriaProdutos categoria,
 
     @NotNull(message = "Preço é obrigatório")
