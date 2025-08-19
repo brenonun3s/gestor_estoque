@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import br.com.estoque.enums.CategoriaProdutos;
 import jakarta.validation.constraints.*;
 
 public record ProdutoRequestDTO(
@@ -23,6 +24,9 @@ public record ProdutoRequestDTO(
     @NotNull(message = "Quantidade mínima é obrigatória")
     @Min(value = 0, message = "Quantidade mínima não pode ser negativa")
     Integer quantidadeMinima,
+
+    @NotBlank(message = "Categoria de Produtos é Obrigatório")
+    CategoriaProdutos categoria,
 
     @NotNull(message = "Preço é obrigatório")
     @DecimalMin(value = "0.0", inclusive = false, message = "Preço deve ser maior que zero")

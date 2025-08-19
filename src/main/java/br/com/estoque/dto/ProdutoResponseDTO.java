@@ -12,6 +12,7 @@ public record ProdutoResponseDTO(
         Integer quantidadeMinima,
         Double preco,
         Boolean status,
+        String categoria,
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
         LocalDate dataValidade) {
 
