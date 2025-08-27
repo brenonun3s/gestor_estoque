@@ -12,6 +12,7 @@ public record ProdutoResponseDTO(
         Integer estoque,
         String marca,
         Integer quantidadeMinima,
+        Integer quantidadeMaxima,
         Double preco,
         Boolean status,
         CategoriaProdutos categoria,

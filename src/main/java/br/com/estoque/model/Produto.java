@@ -45,6 +45,9 @@ public class Produto {
     @Column(name = "quantidade_minima")
     private Integer quantidadeMinima;
 
+    @Column(name = "quantidade_maxima")
+    private Integer quantidadeMaxima;
+
     private Double preco;
 
     private Boolean status;

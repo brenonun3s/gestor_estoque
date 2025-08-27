@@ -32,6 +32,11 @@ public record ProdutoUpdateDTO(
     @Min(value = 0, message = "Quantidade mínima não pode ser negativa")
     Integer quantidadeMinima,
 
+    @NotNull(message = "Quantidade máxima é obrigatória")
+    @Min(value = 0, message = "Quantidade mínima não pode ser negativa")
+    @Max(value = 10000, message = "Quantidade máxima não pode ser superior a 10000")
+    Integer quantidadeMaxima,
+
     @NotNull(message = "Data de validade é obrigatória")
     @FutureOrPresent(message = "Data de validade deve ser hoje ou no futuro")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")

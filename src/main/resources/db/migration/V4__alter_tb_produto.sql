@@ -1,0 +1,2 @@
+ALTER TABLE tb_produto
+ADD COLUMN quantidade_maxima INTEGER NOT NULL DEFAULT 10000;
