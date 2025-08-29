@@ -4,8 +4,6 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
-import org.hibernate.annotations.Type;
-
 import br.com.estoque.enums.CategoriaProdutos;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
