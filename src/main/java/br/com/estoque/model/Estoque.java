@@ -13,6 +13,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,20 +32,12 @@ public class Estoque {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @ManyToOne
-    @JoinColumn(name = "produto_id", nullable = false)
+    @OneToOne
+    @JoinColumn(name = "id_produto", nullable = false, unique = true) // FK única
     private Produto produto;
 
-    @Column(name = "local_estoque")
-    private String localEstoque;
+    @Column(name = "quantidade", nullable = false)
+    private Integer quantidade;
 
-    @Column(name = "quantidade_atual")
-    private Integer quantidadeAtual;
-
-    @Column(name = "ultimo_lancamento")
-    private LocalDateTime ultimoLancamento;
-
-    @OneToMany(mappedBy = "estoque", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<MovimentacaoEstoque> movimentacoes;
 
 }

@@ -59,5 +59,10 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(body);
     }
+
+    @ExceptionHandler(EstoqueInsuficienteException.class)
+    public ResponseEntity<String> handleEstoqueInsuficienteException(EstoqueInsuficienteException ex) {
+     return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(ex.getMessage());
+    }
 }
 

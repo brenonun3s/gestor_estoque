@@ -1,23 +1,5 @@
 package br.com.estoque.service;
 
-
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.util.HashMap;
-import java.util.List;
-
-import org.springframework.stereotype.Service;
-
-import br.com.estoque.dto.RelatorioProdutosDTO;
-import br.com.estoque.repository.EstoqueRepository;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-
 /*@Service
 public class RelatorioEstoqueService {
 
