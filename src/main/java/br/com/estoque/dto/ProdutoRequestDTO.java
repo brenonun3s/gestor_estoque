@@ -13,11 +13,7 @@ public record ProdutoRequestDTO(
 
     @NotBlank(message = "Nome é obrigatório")
     String nome,
-
-    @NotNull(message = "Estoque é obrigatório")
-    @Min(value = 0, message = "Estoque não pode ser negativo")
-    Integer estoque,
-
+    
     @NotBlank(message = "Marca é obrigatória")
     String marca,
 

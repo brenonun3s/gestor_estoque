@@ -1,5 +1,6 @@
 package br.com.estoque.service;
 
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.estoque.dto.SaidaRequestDTO;
@@ -10,6 +11,7 @@ import br.com.estoque.repository.SaidaRepository;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
+@Service
 public class SaidaService {
 
  private final SaidaRepository repository;

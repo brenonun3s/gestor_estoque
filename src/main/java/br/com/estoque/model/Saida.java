@@ -6,6 +6,9 @@ import java.util.UUID;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,19 +22,20 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Saida {
- 
- @GeneratedValue(strategy = GenerationType.UUID)
- private UUID id;
 
- private Produto produto;
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
- private Integer quantidade;
+    @ManyToOne
+    @JoinColumn(name = "id_produto", nullable = false)
+    private Produto produto;
 
- private String motivo;
+    private Integer quantidade;
 
- private LocalDate data;
+    private String motivo;
 
- private String responsavel;
+    private LocalDate data;
 
-
+    private String responsavel;
 }

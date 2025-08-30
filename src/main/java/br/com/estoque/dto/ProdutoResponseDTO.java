@@ -9,7 +9,6 @@ import br.com.estoque.enums.CategoriaProdutos;
 public record ProdutoResponseDTO(
         String sku,
         String nome,
-        Integer estoque,
         String marca,
         Integer quantidadeMinima,
         Integer quantidadeMaxima,

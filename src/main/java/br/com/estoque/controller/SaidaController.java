@@ -21,7 +21,7 @@ public class SaidaController {
 
  private final SaidaService service;
  
- @PostMapping("/registrar-entrada")
+ @PostMapping("/registrar-saida")
  public ResponseEntity<SaidaResponseDTO> cadastrar(@Valid @RequestBody SaidaRequestDTO dto) {
   SaidaResponseDTO saidaSalva = service.registrarSaida(dto);
   URI uri = URI.create("/saidas/");

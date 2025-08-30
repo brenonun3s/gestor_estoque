@@ -14,10 +14,6 @@ public record ProdutoUpdateDTO(
     @NotBlank(message = "Marca não pode ser vazio")
     String marca,
 
-    @NotNull(message = "Estoque é obrigatório")
-    @Min(value = 0, message = "Estoque não pode ser negativo")
-    Integer estoque,
-
     @NotNull(message = "Preço é obrigatório")
     @DecimalMin(value = "0.0", inclusive = false, message = "Preço deve ser maior que zero")
     Double preco,

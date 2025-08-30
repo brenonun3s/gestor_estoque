@@ -1,7 +1,6 @@
 package br.com.estoque.model;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.UUID;
 
 import br.com.estoque.enums.CategoriaProdutos;
@@ -13,7 +12,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -52,14 +51,12 @@ public class Produto {
 
     private LocalDate dataValidade;
 
-    @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Estoque> estoques;
+    @OneToOne(mappedBy = "produto", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Estoque estoque;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "categoria")
     private CategoriaProdutos categoria;
 
-    @Column(name = "quantidade_estoque")
-    private Integer estoque;
 
 }

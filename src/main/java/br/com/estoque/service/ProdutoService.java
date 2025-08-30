@@ -81,7 +81,6 @@ public class ProdutoService {
     }
 
     Long totalQuantidade = produtos.stream()
-        .mapToInt(Produto::getEstoque)
         .count();
 
     return totalQuantidade;
