@@ -45,7 +45,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Map<String, Object>> handleResponseStatusException(ResponseStatusException ex) {
         Map<String, Object> body = new HashMap<>();
         body.put("erro", "Falha ao consultar BrasilAPI");
-        body.put("detalhe", ex.getReason()); // aqui você pode filtrar ou traduzir a mensagem
+        body.put("detalhe", ex.getReason()); 
         body.put("status", ex.getStatusCode().value());
 
         return ResponseEntity.status(ex.getStatusCode()).body(body);
@@ -63,6 +63,16 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(EstoqueInsuficienteException.class)
     public ResponseEntity<String> handleEstoqueInsuficienteException(EstoqueInsuficienteException ex) {
      return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(EntradasNaoLocalizadasException.class)
+    public ResponseEntity<String> handleEntradasNaoLocalizadasException(EntradasNaoLocalizadasException ex) {
+     return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(SaidasNaoLocalizadasException.class)
+    public ResponseEntity<String> handleSaidasNaoLocalizadasException(SaidasNaoLocalizadasException ex) {
+     return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
 }
 

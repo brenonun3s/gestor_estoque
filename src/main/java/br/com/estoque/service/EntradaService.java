@@ -1,10 +1,14 @@
 package br.com.estoque.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.estoque.dto.EntradaRequestDTO;
 import br.com.estoque.dto.EntradaResponseDTO;
+import br.com.estoque.exceptions.EntradasNaoLocalizadasException;
 import br.com.estoque.mapper.EntradaMapper;
 import br.com.estoque.model.Entrada;
 import br.com.estoque.repository.EntradaRepository;
@@ -28,4 +32,18 @@ public class EntradaService {
    throw new RuntimeException("Erro inesperado, contate o Desenvolvedor");
   }
  }
-}
+
+ @Transactional(readOnly = true)
+ public List<EntradaResponseDTO> listar(){
+    List<Entrada> entradas = repository.findAll();
+
+    if (entradas.isEmpty()) {
+      throw new EntradasNaoLocalizadasException("Nenhuma entrada registrada.");
+    }
+
+    return entradas.stream()
+        .map(mapper::toResponseDTO)
+        .collect(Collectors.toList());
+  }
+ }
+

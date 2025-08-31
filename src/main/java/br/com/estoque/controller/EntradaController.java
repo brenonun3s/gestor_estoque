@@ -1,8 +1,10 @@
 package br.com.estoque.controller;
 
 import java.net.URI;
+import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +15,7 @@ import br.com.estoque.dto.EntradaResponseDTO;
 import br.com.estoque.service.EntradaService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+
 
 @RestController
 @RequestMapping("/entradas")
@@ -27,5 +30,12 @@ public class EntradaController {
   URI uri = URI.create("/entradas/");
   return ResponseEntity.created(uri).body(entradaSalva);
  }
+
+ @GetMapping("/listar-entradas")
+ public ResponseEntity<List<EntradaResponseDTO>> listar() {
+     List<EntradaResponseDTO> entradas = service.listar();
+     return ResponseEntity.ok(entradas);
+ }
+ 
 
 }
