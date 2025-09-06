@@ -1,0 +1,1 @@
+DROP TRIGGER IF EXISTS tg_atualiza_estoque_entrada ON tb_entradas;
