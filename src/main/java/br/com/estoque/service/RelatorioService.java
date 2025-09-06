@@ -1,24 +1,36 @@
 package br.com.estoque.service;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.HashMap;
+
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
 
 @Service
 public class RelatorioService {
 
- public String relatorioSaidas() {
-  // Lógica para gerar o relatório
-  return "Relatório gerado com sucesso!";
- }
+    @Autowired
+    private DataSource dataSource;
 
- public String relatorioEntradas() {
-  // Lógica para gerar o relatório
-  return "Relatório gerado com sucesso!";
- }
+    public void gerarPdf() throws SQLException, JRException {
+        try (Connection conn = dataSource.getConnection()) {
+            JasperPrint jasperPrint = JasperFillManager.fillReport(
+                getClass().getResource("/reports/meuRelatorio.jasper").getPath(),
+                new HashMap<>(),
+                conn
+            );
 
- public String relatorioGeral(){
-  // Lógica para gerar o relatório geral
-  return "Relatório geral gerado com sucesso!";
- }
-
- 
+            JasperExportManager.exportReportToPdfFile(jasperPrint, "meuRelatorio.pdf");
+            System.out.println("Relatório gerado!");
+        }
+    }
 }
+

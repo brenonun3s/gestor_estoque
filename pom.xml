@@ -43,7 +43,7 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
-				<dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-mail</artifactId>
 		</dependency>
@@ -56,9 +56,9 @@
 		</dependency>
 
 		<dependency>
-  	<groupId>org.flywaydb</groupId>
-  	<artifactId>flyway-database-postgresql</artifactId>
-  	<version>10.21.0</version>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-database-postgresql</artifactId>
+			<version>10.21.0</version>
 		</dependency>
 
 		<dependency>
@@ -104,34 +104,41 @@
 		</dependency>
 
 		<dependency>
-   <groupId>org.springframework.boot</groupId>
-   <artifactId>spring-boot-starter-cache</artifactId>
-  </dependency>
-  
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-cache</artifactId>
+		</dependency>
+
 		<dependency>
-   <groupId>com.github.ben-manes.caffeine</groupId>
-   <artifactId>caffeine</artifactId>
-  </dependency>
+			<groupId>com.github.ben-manes.caffeine</groupId>
+			<artifactId>caffeine</artifactId>
+		</dependency>
 
-    <!-- JasperReports -->
-    <dependency>
-        <groupId>net.sf.jasperreports</groupId>
-        <artifactId>jasperreports</artifactId>
-        <version>6.21.0</version>
-    </dependency>
+		<dependency>
+			<groupId>net.sf.jasperreports</groupId>
+			<artifactId>jasperreports-pdf</artifactId>
+			<version>7.0.3</version>
+</dependency>
 
-    <!-- Para suportar fontes -->
-    <dependency>
-        <groupId>net.sf.jasperreports</groupId>
-        <artifactId>jasperreports-fonts</artifactId>
-        <version>6.21.0</version>
-    </dependency>
+		<!-- JasperReports -->
+		<dependency>
+			<groupId>net.sf.jasperreports</groupId>
+			<artifactId>jasperreports</artifactId>
+			<version>7.0.3</version>
+		</dependency>
 
-						<dependency>
-    			<groupId>org.postgresql</groupId>
-    			<artifactId>postgresql</artifactId>
-    			<version>42.7.7</version>
-				</dependency>
+		<!-- Para suportar fontes -->
+		<dependency>
+			<groupId>net.sf.jasperreports</groupId>
+			<artifactId>jasperreports-fonts</artifactId>
+			<version>7.0.3</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>42.7.7</version>
+		</dependency>
 
 	</dependencies>
 
@@ -152,8 +159,8 @@
 							<version>1.5.5.Final</version>
 						</path>
 					</annotationProcessorPaths>
-					  <compilerArgs>
-  </compilerArgs>
+					<compilerArgs>
+					</compilerArgs>
 				</configuration>
 			</plugin>
 			<plugin>
