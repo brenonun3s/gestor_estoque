@@ -13,7 +13,7 @@ public class HttpConfig {
   @Bean
   public RestTemplate restTemplate(RestTemplateBuilder builder) {
     return builder
-      .setConnectTimeout(Duration.ofSeconds(5))
+      .connectTimeout(Duration.ofSeconds(5))
       .requestFactory(() -> {
           var factory = new org.springframework.http.client.SimpleClientHttpRequestFactory();
           factory.setReadTimeout((int) Duration.ofSeconds(10).toMillis());

@@ -1,6 +1,9 @@
 package br.com.estoque.dto;
 
-public record CnpjDto(
+import org.hibernate.validator.constraints.br.CNPJ;
+
+public record CnpjDTO(
+  @CNPJ(message = "CNPJ inválido - 14 digitos")
   String cnpj,
   String razao_social,
   String nome_fantasia,

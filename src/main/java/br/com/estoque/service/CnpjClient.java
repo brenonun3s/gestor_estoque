@@ -8,7 +8,8 @@ import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 
-import br.com.estoque.dto.CnpjDto;
+import br.com.estoque.dto.CnpjDTO;
+
 
 @Service
 public class CnpjClient {
@@ -20,14 +21,14 @@ public class CnpjClient {
   this.http = http;
  }
 
- public CnpjDto consultar(String cnpj) {
+ public CnpjDTO consultar(String cnpj) {
   String digits = cnpj.replaceAll("\\D", "");
   if (!digits.matches("\\d{14}")) {
    throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "CNPJ inválido");
   }
 
   try {
-   return http.getForObject(URL, CnpjDto.class, digits);
+   return http.getForObject(URL, CnpjDTO.class, digits);
   } catch (HttpClientErrorException.NotFound e) {
    throw new ResponseStatusException(HttpStatus.NOT_FOUND, "CNPJ não encontrado");
   } catch (HttpStatusCodeException e) {

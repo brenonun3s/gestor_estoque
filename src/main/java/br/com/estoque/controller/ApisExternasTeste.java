@@ -8,8 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.estoque.dto.CnpjDto;
-import br.com.estoque.dto.EstadoDto;
+import br.com.estoque.dto.CnpjDTO;
 import br.com.estoque.dto.MunicipioDto;
 import br.com.estoque.service.CnpjClient;
 import br.com.estoque.service.IbgeClient;
@@ -27,16 +26,8 @@ public class ApisExternasTeste {
   }
 
   @GetMapping("/cnpj/{cnpj}")
-  public CnpjDto buscarCnpj(@PathVariable String cnpj) {
+  public CnpjDTO buscarCnpj(@PathVariable String cnpj) {
     return cnpjClient.consultar(cnpj);
-  }
-
-  @GetMapping("/ibge/estados")
-  public List<EstadoDto> estados() {
-    return ibgeClient.listarEstados()
-      .stream()
-      .sorted(Comparator.comparing(EstadoDto::sigla))
-      .toList();
   }
 
   @GetMapping("/ibge/estados/{uf}/municipios")
