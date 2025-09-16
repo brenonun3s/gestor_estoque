@@ -6,6 +6,7 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
 
 @Configuration
 public class HttpConfig {
@@ -15,7 +16,7 @@ public class HttpConfig {
     return builder
       .connectTimeout(Duration.ofSeconds(5))
       .requestFactory(() -> {
-          var factory = new org.springframework.http.client.SimpleClientHttpRequestFactory();
+          var factory = new SimpleClientHttpRequestFactory();
           factory.setReadTimeout((int) Duration.ofSeconds(10).toMillis());
           return factory;
       })
