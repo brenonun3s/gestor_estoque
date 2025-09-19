@@ -29,6 +29,7 @@ public class ApisExternasTeste {
   public CnpjDTO buscarCnpj(@PathVariable String cnpj) {
     return cnpjClient.consultar(cnpj);
   }
+  
 
   @GetMapping("/ibge/estados/{uf}/municipios")
   public List<MunicipioDto> municipios(@PathVariable String uf) {

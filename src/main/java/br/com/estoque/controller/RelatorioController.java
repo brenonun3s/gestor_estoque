@@ -1,4 +1,4 @@
-package br.com.estoque.service;
+package br.com.estoque.controller;
 
 import java.io.InputStream;
 import java.util.HashMap;
