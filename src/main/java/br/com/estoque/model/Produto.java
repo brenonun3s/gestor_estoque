@@ -53,6 +53,7 @@ public class Produto {
 
     @OneToOne(mappedBy = "produto", cascade = CascadeType.ALL, orphanRemoval = true)
     private Estoque estoque;
+    
 
     @Enumerated(EnumType.STRING)
     @Column(name = "categoria")

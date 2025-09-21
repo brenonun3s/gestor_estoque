@@ -28,7 +28,7 @@ public class Estoque {
     private UUID id;
 
     @OneToOne
-    @JoinColumn(name = "id_produto", nullable = false, unique = true)
+    @JoinColumn(name = "produto_id", nullable = false, unique = true)
     private Produto produto;
 
     @Column(name = "quantidade_atual", nullable = false)
