@@ -2,7 +2,6 @@ package br.com.estoque.service;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,15 +50,12 @@ public class ProdutoService {
 
   @Transactional(readOnly = true)
   public List<ProdutoResponseDTO> listarTodosProdutos() {
-    List<Produto> produtos = produtoRepository.findAll();
-
+    List<ProdutoResponseDTO> produtos = produtoRepository.findAllProdutosDTO();
     if (produtos.isEmpty()) {
       throw new ProdutoNaoLocalizadoException("Nenhum produto encontrado.");
     }
+    return produtos;
 
-    return produtos.stream()
-        .map(produtoMapper::toResponseDTO)
-        .collect(Collectors.toList());
   }
 
   @Transactional
