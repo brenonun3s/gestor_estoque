@@ -14,7 +14,7 @@ import br.com.estoque.model.entity.Saida;
 public interface SaidaRepository extends JpaRepository<Saida, UUID> {
 
     @Query("""
-                SELECT new br.com.estoque.dto.MovimentacoesDTO(
+                SELECT new br.com.estoque.dto.response.MovimentacoesResponseDTO(
                     e.quantidade,
                     e.motivo,
                     e.responsavel,

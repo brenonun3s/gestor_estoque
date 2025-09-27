@@ -17,7 +17,7 @@ public interface ProdutoRepository extends JpaRepository<Produto, UUID> {
 
  List<Produto> findAllByStatusTrue();
 
-     @Query("SELECT new br.com.estoque.dto.ProdutoResponseDTO(" +
+     @Query("SELECT new br.com.estoque.dto.response.ProdutoResponseDTO(" +
            "p.sku, p.nome, p.marca, p.quantidadeMinima, p.quantidadeMaxima, " +
            "p.preco, p.status, p.categoria, p.dataValidade, e.quantidade) " +
            "FROM Produto p LEFT JOIN p.estoque e")

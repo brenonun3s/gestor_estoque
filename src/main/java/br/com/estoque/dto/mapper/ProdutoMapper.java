@@ -13,11 +13,14 @@ import br.com.estoque.model.entity.Produto;
 public interface ProdutoMapper {
 
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "estoque", ignore = true)
     Produto toEntity(ProdutoRequestDTO dto);
 
+    @Mapping(target = "quantidade", ignore = true)
     ProdutoResponseDTO toResponseDTO(Produto produto);
 
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "estoque", ignore = true)
     void updateProdutoFromDto(ProdutoUpdateDTO dto, @MappingTarget Produto produto);
 }
 

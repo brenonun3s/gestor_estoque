@@ -1,36 +1,22 @@
 package br.com.estoque.service;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import lombok.RequiredArgsConstructor;
+import br.com.estoque.dto.response.EstoqueResponseDTO;
+import br.com.estoque.repository.EstoqueRepository;
 
 @Service
-@RequiredArgsConstructor
 public class EstoqueService {
 
- //TODO: DESENVOLVER LOGICA E PENSAR NA REGRA DE NEGOCIOSW
- public void listarEstoqueBaixo(){
-  System.out.println("Produtos com estoque baixo");
- }
+  @Autowired
+  EstoqueRepository repository;
 
- //TODO: DESENVOLVER LOGICA E PENSAR NA REGRA DE NEGOCIOS
- public void listarTotalProdutosCadastrados(){
-  System.out.println("Total de produtos");
-}
+  public List<EstoqueResponseDTO> listarQuantidadeEstoque(){
+    List<EstoqueResponseDTO> quantidadeEstoque = repository.findAllEstoque();
+    return quantidadeEstoque;
 
-//TODO: DESENVOLVER LOGICA E PENSAR NA REGRA DE NEGOCIOS
-public void listarQuantidadeProdutosEstoqueBaixo(){
- System.out.println("Alertas de estoque baixo");
-}
-
-//TODO: DESENVOLVER LOGICA E PENSAR NA REGRA DE NEGOCIOS
-public void registrarSaida(){
-  System.out.println("Saida de produto do estoque");
-}
- 
-//TODO: DESENVOLVER LOGICA E PENSAR NA REGRA DE NEGOCIOS
-public void filtrarValorTotalEmEstoque(){
-  System.out.println("Filtro");
-}
-
+  }
 }
