@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.estoque.dto.EntradaRequestDTO;
-import br.com.estoque.dto.EntradaResponseDTO;
+import br.com.estoque.dto.request.EntradaRequestDTO;
+import br.com.estoque.dto.response.EntradaResponseDTO;
 import br.com.estoque.service.EntradaService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

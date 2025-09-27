@@ -6,11 +6,11 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.estoque.dto.SaidaRequestDTO;
-import br.com.estoque.dto.SaidaResponseDTO;
-import br.com.estoque.exceptions.SaidasNaoLocalizadasException;
-import br.com.estoque.mapper.SaidaMapper;
-import br.com.estoque.model.Saida;
+import br.com.estoque.dto.mapper.SaidaMapper;
+import br.com.estoque.dto.request.SaidaRequestDTO;
+import br.com.estoque.dto.response.SaidaResponseDTO;
+import br.com.estoque.exceptions.custom.SaidasNaoLocalizadasException;
+import br.com.estoque.model.entity.Saida;
 import br.com.estoque.repository.SaidaRepository;
 import lombok.RequiredArgsConstructor;
 

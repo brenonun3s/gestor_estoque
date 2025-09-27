@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.estoque.dto.CnpjDTO;
-import br.com.estoque.dto.MunicipioDto;
+import br.com.estoque.dto.response.CnpjDTO;
+import br.com.estoque.dto.response.MunicipioDto;
 import br.com.estoque.service.CnpjClient;
 import br.com.estoque.service.IbgeClient;
 

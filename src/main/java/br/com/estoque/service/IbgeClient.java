@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 
-import br.com.estoque.dto.MunicipioDto;
+import br.com.estoque.dto.response.MunicipioDto;
 
 @Service
 public class IbgeClient {

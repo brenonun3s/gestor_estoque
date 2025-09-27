@@ -8,7 +8,7 @@ import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 
-import br.com.estoque.dto.CnpjDTO;
+import br.com.estoque.dto.response.CnpjDTO;
 
 
 @Service

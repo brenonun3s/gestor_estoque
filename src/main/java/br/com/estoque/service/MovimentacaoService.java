@@ -4,55 +4,31 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.estoque.dto.MovimentacoesDTO;
+import br.com.estoque.dto.response.MovimentacoesResponseDTO;
 import br.com.estoque.repository.EntradaRepository;
 import br.com.estoque.repository.SaidaRepository;
 
 @Service
 public class MovimentacaoService {
 
-    private final EntradaRepository entradaRepository;
-    private final SaidaRepository saidaRepository;
+    @Autowired
+    EntradaRepository entradaRepository;
 
-    public MovimentacaoService(EntradaRepository entradaRepository, SaidaRepository saidaRepository) {
-        this.entradaRepository = entradaRepository;
-        this.saidaRepository = saidaRepository;
-    }
+    @Autowired
+    SaidaRepository saidaRepository;
 
-    public List<MovimentacoesDTO> listarMovimentacoes() {
-        List<MovimentacoesDTO> entradas = entradaRepository.findAll()
-            .stream()
-            .map(e -> new MovimentacoesDTO(
-                e.getQuantidade(),
-                e.getMotivo(),
-                e.getResponsavel(),
-                e.getProduto().getSku(),
-                e.getProduto().getNome(),
-                e.getData(),
-                "ENTRADA"
-            )).toList();
+    public List<MovimentacoesResponseDTO> listarMovimentacoes() {
+        List<MovimentacoesResponseDTO> entradas = entradaRepository.findAllMovimentacoes();
 
-        List<MovimentacoesDTO> saidas = saidaRepository.findAll()
-            .stream()
-            .map(s -> new MovimentacoesDTO(
-                s.getQuantidade(),
-                s.getMotivo(),
-                s.getResponsavel(),
-                s.getProduto().getSku(),
-                s.getProduto().getNome(),
-                s.getData(),
-                "SAIDA"
-            )).toList();
-
-        // junta tudo e ordena por data
-        List<MovimentacoesDTO> todas = new ArrayList<>();
+        List<MovimentacoesResponseDTO> saidas = saidaRepository.findAllMovimentacoes();
+        List<MovimentacoesResponseDTO> todas = new ArrayList<>();
         todas.addAll(entradas);
         todas.addAll(saidas);
 
-        todas.sort(Comparator.comparing(MovimentacoesDTO::data));
+        todas.sort(Comparator.comparing(MovimentacoesResponseDTO::data));
         return todas;
     }
 }
-

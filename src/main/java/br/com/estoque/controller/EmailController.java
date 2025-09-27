@@ -1,16 +1,15 @@
 package br.com.estoque.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import br.com.estoque.model.Email;
-import br.com.estoque.service.EmailService;
-import jakarta.mail.MessagingException;
-import lombok.RequiredArgsConstructor;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import br.com.estoque.dto.request.Email;
+import br.com.estoque.service.EmailService;
+import jakarta.mail.MessagingException;
+import lombok.RequiredArgsConstructor;
 
 
 @RestController

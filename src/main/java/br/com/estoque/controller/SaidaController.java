@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.estoque.dto.SaidaRequestDTO;
-import br.com.estoque.dto.SaidaResponseDTO;
+import br.com.estoque.dto.request.SaidaRequestDTO;
+import br.com.estoque.dto.response.SaidaResponseDTO;
 import br.com.estoque.service.SaidaService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.estoque.dto.ProdutoRequestDTO;
-import br.com.estoque.dto.ProdutoResponseDTO;
-import br.com.estoque.dto.ProdutoUpdateDTO;
+import br.com.estoque.dto.request.ProdutoRequestDTO;
+import br.com.estoque.dto.response.ProdutoResponseDTO;
+import br.com.estoque.dto.response.ProdutoUpdateDTO;
 import br.com.estoque.service.ProdutoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
