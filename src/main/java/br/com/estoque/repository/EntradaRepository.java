@@ -27,4 +27,8 @@ public interface EntradaRepository extends JpaRepository<Entrada, UUID> {
                 JOIN e.produto p
             """)
     List<MovimentacoesResponseDTO> findAllMovimentacoes();
+
+    @Query("SELECT FUNCTION('DATE', e.data), SUM(e.quantidade) FROM Entrada e GROUP BY FUNCTION('DATE', e.data)")
+    List<Object[]> totalEntradasPorDia();
+
 }

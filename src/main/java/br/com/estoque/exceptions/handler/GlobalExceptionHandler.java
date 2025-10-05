@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.server.ResponseStatusException;
 
 import br.com.estoque.exceptions.custom.CnpjNaoLocalicazadoException;
+import br.com.estoque.exceptions.custom.EmailAlreadyExistsException;
 import br.com.estoque.exceptions.custom.EntradasNaoLocalizadasException;
 import br.com.estoque.exceptions.custom.EstoqueInsuficienteException;
 import br.com.estoque.exceptions.custom.ProdutoJaCadastradoException;
 import br.com.estoque.exceptions.custom.ProdutoNaoLocalizadoException;
+import br.com.estoque.exceptions.custom.ProdutoPossuiEstoqueException;
 import br.com.estoque.exceptions.custom.SaidasNaoLocalizadasException;
 
 @RestControllerAdvice
@@ -80,6 +82,16 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(SaidasNaoLocalizadasException.class)
     public ResponseEntity<String> handleSaidasNaoLocalizadasException(SaidasNaoLocalizadasException ex) {
      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(ProdutoPossuiEstoqueException.class)
+    public ResponseEntity<String> ProdutoPossuiEstoqueException(ProdutoPossuiEstoqueException ex) {
+     return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(EmailAlreadyExistsException.class)
+    public ResponseEntity<String> EmailAlreadyExistsException(EmailAlreadyExistsException ex) {
+     return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
     }
 }
 

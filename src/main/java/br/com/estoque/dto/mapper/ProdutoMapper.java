@@ -5,8 +5,8 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
 import br.com.estoque.dto.request.ProdutoRequestDTO;
+import br.com.estoque.dto.request.ProdutoUpdateDTO;
 import br.com.estoque.dto.response.ProdutoResponseDTO;
-import br.com.estoque.dto.response.ProdutoUpdateDTO;
 import br.com.estoque.model.entity.Produto;
 
 @Mapper(componentModel = "spring")

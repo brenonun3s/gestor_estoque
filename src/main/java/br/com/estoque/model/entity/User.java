@@ -1,9 +1,10 @@
 package br.com.estoque.model.entity;
 
-import java.util.ArrayList;
 import java.util.UUID;
 
-import br.com.estoque.model.enums.UsuarioEnum;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,20 +16,24 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
+@Table(name = "tb_usuarios")
 @Getter
 @Setter
-@Table(name = "tb_usuarios")
-public class Usuario {
- 
+@AllArgsConstructor
+@NoArgsConstructor
+public class User {
+
  @Id
  @GeneratedValue(strategy = GenerationType.UUID)
  private UUID id;
 
- private String username;
+ private String name;
 
- private String senha;
+ @Column(unique = true, nullable = false)
+ private String email;
 
- private ArrayList<UsuarioEnum> roles;
+ @Column(nullable = false)
+ @JsonIgnore
+ private String password;
+
 }

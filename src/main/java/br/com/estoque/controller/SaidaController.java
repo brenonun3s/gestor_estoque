@@ -1,7 +1,9 @@
 package br.com.estoque.controller;
 
 import java.net.URI;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,6 +37,11 @@ public class SaidaController {
      List<SaidaResponseDTO> saidas = service.listar();
      return ResponseEntity.ok(saidas);
  }
+
+ @GetMapping("/saidas-por-dia")
+public ResponseEntity<Map<LocalDate, Integer>> saidasPorDia() {
+    return ResponseEntity.ok(service.listarSaidasPorDia());
+}
 
 
 }

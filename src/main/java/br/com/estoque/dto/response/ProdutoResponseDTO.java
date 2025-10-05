@@ -1,12 +1,14 @@
 package br.com.estoque.dto.response;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import br.com.estoque.model.enums.CategoriaProdutos;
 
 public record ProdutoResponseDTO(
+        UUID id,
         String sku,
         String nome,
         String marca,

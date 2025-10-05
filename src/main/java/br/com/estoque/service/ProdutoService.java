@@ -1,18 +1,23 @@
 package br.com.estoque.service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.estoque.dto.mapper.ProdutoMapper;
 import br.com.estoque.dto.request.ProdutoRequestDTO;
+import br.com.estoque.dto.request.ProdutoUpdateDTO;
 import br.com.estoque.dto.response.ProdutoResponseDTO;
-import br.com.estoque.dto.response.ProdutoUpdateDTO;
 import br.com.estoque.exceptions.custom.ProdutoJaCadastradoException;
 import br.com.estoque.exceptions.custom.ProdutoNaoLocalizadoException;
+import br.com.estoque.exceptions.custom.ProdutoPossuiEstoqueException;
 import br.com.estoque.model.entity.Produto;
+import br.com.estoque.model.enums.CategoriaProdutos;
+import br.com.estoque.repository.EstoqueRepository;
 import br.com.estoque.repository.ProdutoRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +29,8 @@ public class ProdutoService {
   private final ProdutoRepository produtoRepository;
 
   private final ProdutoMapper produtoMapper;
+
+  private final EstoqueRepository estoqueRepository;
 
   @Transactional
   public ProdutoResponseDTO cadastrar(ProdutoRequestDTO dto) {
@@ -64,6 +71,10 @@ public class ProdutoService {
     Produto produto = produtoRepository.findById(id)
         .orElseThrow(() -> new ProdutoNaoLocalizadoException("Produto não encontrado com esse ID" + id));
 
+    boolean possuiEstoque = estoqueRepository.existsByProdutoId(id);
+    if (possuiEstoque) {
+      throw new ProdutoPossuiEstoqueException("Produto não pode ser excluido pois possui estoque. Inative o produto");
+    }
     produtoRepository.delete(produto);
 
   }
@@ -83,10 +94,23 @@ public class ProdutoService {
 
   }
 
+  
+public Map<String, Long> listarProdutosPorCategoria() {
+    List<Object[]> resultados = produtoRepository.countProdutosPorCategoria();
+
+    return resultados.stream()
+            .collect(Collectors.toMap(
+                    r -> ((CategoriaProdutos) r[0]).name(), 
+                    r -> (Long) r[1]
+            ));
+}
+
+
+
   // TODO: TIVE ESSA IDEIA, ESTOU ESTUDANDO COMO FAZER -> ASSIM QUE POSSIVEL, VOU
   // IMPLEMENTAR
   public void importarProdutosViaCSV() {
 
   }
 
-}
+};

@@ -1,6 +1,8 @@
 package br.com.estoque.service;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -45,5 +47,15 @@ public class EntradaService {
         .map(mapper::toResponseDTO)
         .collect(Collectors.toList());
   }
+  public Map<LocalDate, Integer> listarEntradasPorDia() {
+    List<Object[]> resultados = repository.totalEntradasPorDia();
+
+    return resultados.stream()
+            .collect(Collectors.toMap(
+                    r -> ((java.sql.Date) r[0]).toLocalDate(), 
+                    r -> ((Long) r[1]).intValue()
+            ));
+}
+
  }
 

@@ -28,4 +28,7 @@ public interface SaidaRepository extends JpaRepository<Saida, UUID> {
             """)
     List<MovimentacoesResponseDTO> findAllMovimentacoes();
 
+    @Query("SELECT FUNCTION('DATE', s.data), SUM(s.quantidade) FROM Saida s GROUP BY FUNCTION('DATE', s.data)")
+    List<Object[]> totalSaidasPorDia();
+
 }

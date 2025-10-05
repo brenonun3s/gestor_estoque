@@ -13,15 +13,17 @@ import br.com.estoque.model.entity.Produto;
 @Repository
 public interface ProdutoRepository extends JpaRepository<Produto, UUID> {
 
- boolean existsBySku(String sku);
+    boolean existsBySku(String sku);
 
- List<Produto> findAllByStatusTrue();
+    List<Produto> findAllByStatusTrue();
 
-     @Query("SELECT new br.com.estoque.dto.response.ProdutoResponseDTO(" +
-           "p.sku, p.nome, p.marca, p.quantidadeMinima, p.quantidadeMaxima, " +
-           "p.preco, p.status, p.categoria, p.dataValidade, e.quantidade) " +
-           "FROM Produto p LEFT JOIN p.estoque e")
+    @Query("SELECT new br.com.estoque.dto.response.ProdutoResponseDTO(" +
+            "p.id, p.sku, p.nome, p.marca, p.quantidadeMinima, p.quantidadeMaxima, " +
+            "p.preco, p.status, p.categoria, p.dataValidade, e.quantidade) " +
+            "FROM Produto p LEFT JOIN p.estoque e")
     List<ProdutoResponseDTO> findAllProdutosDTO();
 
+    @Query("SELECT p.categoria, COUNT(p) FROM Produto p GROUP BY p.categoria")
+    List<Object[]> countProdutosPorCategoria();
 
 }

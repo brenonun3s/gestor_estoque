@@ -24,7 +24,7 @@ public class RelatorioController {
     private DataSource dataSource;
 
     @GetMapping("/produtos")
-    public ResponseEntity<byte[]> gerarRelatorio() throws Exception {
+    public ResponseEntity<byte[]> gerarRelatorioProdutos() throws Exception {
         // Abre o .jasper via classpath
         InputStream jasperStream = getClass().getResourceAsStream("/reports/relatorios_produtos.jasper");
         if (jasperStream == null) {
@@ -46,6 +46,58 @@ public class RelatorioController {
                 .contentType(MediaType.APPLICATION_PDF)
                 .body(pdf);
     }
+
+    // EM DESENVOLVIMENTO
+    @GetMapping("/estoque")
+    public ResponseEntity<byte[]> gerarRelatorioEstoque() throws Exception {
+        // Abre o .jasper via classpath
+        InputStream jasperStream = getClass().getResourceAsStream("/reports/relatorios_produtos.jasper");
+        if (jasperStream == null) {
+            throw new RuntimeException("Arquivo relatorios_produtos.jasper não encontrado no classpath!");
+        }
+
+        // Preenche o relatório
+        JasperPrint jasperPrint = JasperFillManager.fillReport(
+                jasperStream,
+                new HashMap<>(),
+                dataSource.getConnection()
+        );
+
+        // Exporta para PDF
+        byte[] pdf = JasperExportManager.exportReportToPdf(jasperPrint);
+
+        return ResponseEntity.ok()
+                .header("Content-Disposition", "inline; filename=relatorios_produtos.pdf")
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(pdf);
+    }
+
+    // EM DESENVOLVIMENTO
+    @GetMapping("/movimentacoes")
+    public ResponseEntity<byte[]> gerarRelatorioMovimentacoes() throws Exception {
+        // Abre o .jasper via classpath
+        InputStream jasperStream = getClass().getResourceAsStream("/reports/relatorios_produtos.jasper");
+        if (jasperStream == null) {
+            throw new RuntimeException("Arquivo relatorios_produtos.jasper não encontrado no classpath!");
+        }
+
+        // Preenche o relatório
+        JasperPrint jasperPrint = JasperFillManager.fillReport(
+                jasperStream,
+                new HashMap<>(),
+                dataSource.getConnection()
+        );
+
+        // Exporta para PDF
+        byte[] pdf = JasperExportManager.exportReportToPdf(jasperPrint);
+
+        return ResponseEntity.ok()
+                .header("Content-Disposition", "inline; filename=relatorios_produtos.pdf")
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(pdf);
+    }
+
+    
 }
 
 

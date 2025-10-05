@@ -22,5 +22,7 @@ public interface EstoqueRepository extends JpaRepository<Estoque, UUID>{
             """)
     List<EstoqueResponseDTO> findAllEstoque();
 
+    boolean existsByProdutoId(UUID id);
+
  
 } 
