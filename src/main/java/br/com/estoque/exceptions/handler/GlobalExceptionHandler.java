@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.server.ResponseStatusException;
 
 import br.com.estoque.exceptions.custom.CnpjNaoLocalicazadoException;
-import br.com.estoque.exceptions.custom.EmailAlreadyExistsException;
+import br.com.estoque.exceptions.custom.EmailJaExisteException;
 import br.com.estoque.exceptions.custom.EntradasNaoLocalizadasException;
 import br.com.estoque.exceptions.custom.EstoqueInsuficienteException;
 import br.com.estoque.exceptions.custom.ProdutoJaCadastradoException;
@@ -89,8 +89,8 @@ public class GlobalExceptionHandler {
      return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
     }
 
-    @ExceptionHandler(EmailAlreadyExistsException.class)
-    public ResponseEntity<String> EmailAlreadyExistsException(EmailAlreadyExistsException ex) {
+    @ExceptionHandler(EmailJaExisteException.class)
+    public ResponseEntity<String> EmailAlreadyExistsException(EmailJaExisteException ex) {
      return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
     }
 }

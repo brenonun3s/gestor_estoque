@@ -18,7 +18,6 @@ public class CepClient {
 }
 
 public CepDTO buscarCep(String cep) {
-    // Validação básica do CEP
     if (!cep.matches("\\d{8}")) {
         throw new ResponseStatusException(
             HttpStatus.BAD_REQUEST, "CEP inválido. Deve conter 8 dígitos numéricos.");

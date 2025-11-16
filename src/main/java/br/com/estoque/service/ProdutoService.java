@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,17 +21,18 @@ import br.com.estoque.model.enums.CategoriaProdutos;
 import br.com.estoque.repository.EstoqueRepository;
 import br.com.estoque.repository.ProdutoRepository;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
 
 @Service
-@RequiredArgsConstructor
 public class ProdutoService {
 
-  private final ProdutoRepository produtoRepository;
+  @Autowired
+  ProdutoRepository produtoRepository;
 
-  private final ProdutoMapper produtoMapper;
+  @Autowired
+  ProdutoMapper produtoMapper;
 
-  private final EstoqueRepository estoqueRepository;
+  @Autowired
+  EstoqueRepository estoqueRepository;
 
   @Transactional
   public ProdutoResponseDTO cadastrar(ProdutoRequestDTO dto) {
@@ -105,12 +107,5 @@ public Map<String, Long> listarProdutosPorCategoria() {
             ));
 }
 
-
-
-  // TODO: TIVE ESSA IDEIA, ESTOU ESTUDANDO COMO FAZER -> ASSIM QUE POSSIVEL, VOU
-  // IMPLEMENTAR
-  public void importarProdutosViaCSV() {
-
-  }
 
 };

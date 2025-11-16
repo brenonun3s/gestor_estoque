@@ -5,14 +5,14 @@ import org.mapstruct.Mapping;
 
 import br.com.estoque.dto.request.UserRegisterDTO;
 import br.com.estoque.dto.response.UserResponseDTO;
-import br.com.estoque.model.entity.User;
+import br.com.estoque.model.entity.Usuario;
 
 @Mapper(componentModel = "spring")
-public interface UserMapper {
+public interface UsuarioMapper {
 
  @Mapping(target = "id", ignore = true)
- User toEntity(UserRegisterDTO dto);
+ Usuario toEntity(UserRegisterDTO dto);
 
- UserResponseDTO toResponseDto(User user);
+ UserResponseDTO toResponseDto(Usuario user);
 
 }

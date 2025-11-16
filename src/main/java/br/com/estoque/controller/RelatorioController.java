@@ -25,20 +25,16 @@ public class RelatorioController {
 
     @GetMapping("/produtos")
     public ResponseEntity<byte[]> gerarRelatorioProdutos() throws Exception {
-        // Abre o .jasper via classpath
         InputStream jasperStream = getClass().getResourceAsStream("/reports/relatorios_produtos.jasper");
         if (jasperStream == null) {
             throw new RuntimeException("Arquivo relatorios_produtos.jasper não encontrado no classpath!");
         }
 
-        // Preenche o relatório
         JasperPrint jasperPrint = JasperFillManager.fillReport(
                 jasperStream,
                 new HashMap<>(),
                 dataSource.getConnection()
         );
-
-        // Exporta para PDF
         byte[] pdf = JasperExportManager.exportReportToPdf(jasperPrint);
 
         return ResponseEntity.ok()
@@ -51,7 +47,7 @@ public class RelatorioController {
     @GetMapping("/estoque")
     public ResponseEntity<byte[]> gerarRelatorioEstoque() throws Exception {
         // Abre o .jasper via classpath
-        InputStream jasperStream = getClass().getResourceAsStream("/reports/relatorios_produtos.jasper");
+        InputStream jasperStream = getClass().getResourceAsStream("/reports/relatorios_estoque.jasper");
         if (jasperStream == null) {
             throw new RuntimeException("Arquivo relatorios_produtos.jasper não encontrado no classpath!");
         }
@@ -76,7 +72,7 @@ public class RelatorioController {
     @GetMapping("/movimentacoes")
     public ResponseEntity<byte[]> gerarRelatorioMovimentacoes() throws Exception {
         // Abre o .jasper via classpath
-        InputStream jasperStream = getClass().getResourceAsStream("/reports/relatorios_produtos.jasper");
+        InputStream jasperStream = getClass().getResourceAsStream("/reports/relatorios_movimentacoes.jasper");
         if (jasperStream == null) {
             throw new RuntimeException("Arquivo relatorios_produtos.jasper não encontrado no classpath!");
         }

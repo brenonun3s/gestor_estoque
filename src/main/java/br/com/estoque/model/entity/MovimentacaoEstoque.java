@@ -47,7 +47,7 @@ public class MovimentacaoEstoque {
     @Column(name = "data_movimentacao", nullable = false)
     private LocalDateTime dataMovimentacao;
 
-    //TODO: Implementar o relacionamento com a entidade Usuario assim que desenvolver segurança
+    //TODO: Implementar o relacionamento com a entidade Usuario
     @Column(name = "usuario_alteracao", nullable = false)
     private String usuarioAlteracao;
 

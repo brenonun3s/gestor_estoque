@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,15 +15,16 @@ import br.com.estoque.dto.response.SaidaResponseDTO;
 import br.com.estoque.exceptions.custom.SaidasNaoLocalizadasException;
 import br.com.estoque.model.entity.Saida;
 import br.com.estoque.repository.SaidaRepository;
-import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
+
 @Service
 public class SaidaService {
 
- private final SaidaRepository repository;
+ @Autowired
+ SaidaRepository repository;
 
- private final SaidaMapper mapper;
+ @Autowired
+ SaidaMapper mapper;
 
  @Transactional
  public SaidaResponseDTO registrarSaida(SaidaRequestDTO dto) {
