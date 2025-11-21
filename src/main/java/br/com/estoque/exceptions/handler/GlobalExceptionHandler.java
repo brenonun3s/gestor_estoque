@@ -85,12 +85,12 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(ProdutoPossuiEstoqueException.class)
-    public ResponseEntity<String> ProdutoPossuiEstoqueException(ProdutoPossuiEstoqueException ex) {
+    public ResponseEntity<String> handleProdutoPossuiEstoqueException(ProdutoPossuiEstoqueException ex) {
      return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
     }
 
     @ExceptionHandler(EmailJaExisteException.class)
-    public ResponseEntity<String> EmailAlreadyExistsException(EmailJaExisteException ex) {
+    public ResponseEntity<String> handleEmailAlreadyExistsException(EmailJaExisteException ex) {
      return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
     }
 }

@@ -60,9 +60,6 @@ public class ProdutoService {
   @Transactional(readOnly = true)
   public List<ProdutoResponseDTO> listarTodosProdutos() {
     List<ProdutoResponseDTO> produtos = produtoRepository.findAllProdutosDTO();
-    if (produtos.isEmpty()) {
-      throw new ProdutoNaoLocalizadoException("Nenhum produto encontrado.");
-    }
     return produtos;
 
   }

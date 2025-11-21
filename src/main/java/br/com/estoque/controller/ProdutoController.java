@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +28,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ProdutoController {
 
-  private final ProdutoService service;
+  @Autowired
+  ProdutoService service;
 
   @GetMapping("/listar-produtos")
   public ResponseEntity<List<ProdutoResponseDTO>> listar() {
@@ -44,8 +46,8 @@ public class ProdutoController {
 
   @DeleteMapping("/deletar-produto/{id}")
   public ResponseEntity<Void> deletarProduto(@PathVariable UUID id) {
-    service.deletarProduto(id);
-    return ResponseEntity.ok().build();
+      service.deletarProduto(id);
+      return ResponseEntity.noContent().build();
   }
 
   @PostMapping("/cadastrar-produtos")
