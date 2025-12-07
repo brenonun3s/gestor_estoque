@@ -29,35 +29,51 @@ public class JwtFilter extends OncePerRequestFilter {
 
     String path = request.getRequestURI();
 
-    if (path.startsWith("/auth")) {
+    if (path.equals("/auth/login") || path.equals("/auth/register")) {
       chain.doFilter(request, response);
       return;
     }
 
-    String authHeader = request.getHeader("Authorization");
+    final String authHeader = request.getHeader("Authorization");
 
     if (authHeader != null && authHeader.startsWith("Bearer ")) {
-      try {
+      String jwt = authHeader.substring(7);
 
-        String jwt = authHeader.substring(7);
+      try {
         String username = jwtUtil.extractUsername(jwt);
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
           var userDetails = userDetailsService.loadUserByUsername(username);
+
           if (jwtUtil.validateToken(jwt)) {
-            UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails, null,
-                userDetails.getAuthorities());
+            UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
+                userDetails, null, userDetails.getAuthorities());
 
             authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
             SecurityContextHolder.getContext().setAuthentication(authToken);
           }
-
         }
-      } catch (Exception e) {
 
+      } catch (io.jsonwebtoken.ExpiredJwtException ex) {
+
+        if (path.equals("/auth/refresh")) {
+          String username = ex.getClaims().getSubject();
+
+          var userDetails = userDetailsService.loadUserByUsername(username);
+
+          UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
+              userDetails, null, userDetails.getAuthorities());
+
+          authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+          SecurityContextHolder.getContext().setAuthentication(authToken);
+
+        } else {
+          response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+          return;
+        }
       }
-
     }
+
     chain.doFilter(request, response);
   }
 }

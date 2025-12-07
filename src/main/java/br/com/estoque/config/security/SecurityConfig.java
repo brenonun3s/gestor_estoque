@@ -25,14 +25,15 @@ public class SecurityConfig {
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http, JwtFilter jwtFilter) throws Exception {
     http
-        .cors().configurationSource(corsConfigurationSource())
-        .and()
+        .cors(cors -> cors.configurationSource(corsConfigurationSource()))
         .csrf(AbstractHttpConfigurer::disable)
-        .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.disable()))
         .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests(auth -> auth
-            .requestMatchers("/auth/**", "/api/cnpj/**", "/api/cep/**").permitAll()
+            .requestMatchers("/auth/login", "/auth/register").permitAll()
+            .requestMatchers("/auth/refresh").authenticated()
+            .requestMatchers("/api/cnpj/**", "/api/cep/**").permitAll()
             .anyRequest().authenticated())
+
         .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
     return http.build();
@@ -53,12 +54,11 @@ public class SecurityConfig {
     CorsConfiguration config = new CorsConfiguration();
     config.setAllowedOrigins(List.of(
         "http://localhost:5173",
-        "https://frontend-estoque360.vercel.app",
-        "https://lacie-hyperdulic-stacee.ngrok-free.dev"
-      ));
+        "https://estoque-mei.vercel.app/",
+        "https://lacie-hyperdulic-stacee.ngrok-free.dev"));
     config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-    config.setAllowedHeaders(List.of("*"));
-    config.setAllowCredentials(true);
+    config.setAllowedHeaders(List.of("Authorization", "Content-Type"));
+    config.setAllowCredentials(false);
 
     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
     source.registerCorsConfiguration("/**", config);
