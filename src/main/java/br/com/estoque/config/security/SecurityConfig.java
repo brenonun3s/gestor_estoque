@@ -55,7 +55,8 @@ public class SecurityConfig {
     config.setAllowedOrigins(List.of(
         "http://localhost:5173",
         "https://estoque-mei.vercel.app/",
-        "https://lacie-hyperdulic-stacee.ngrok-free.dev"));
+        "https://lacie-hyperdulic-stacee.ngrok-free.dev",
+        ));
     config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
     config.setAllowedHeaders(List.of("Authorization", "Content-Type"));
     config.setAllowCredentials(false);
