@@ -71,7 +71,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(EstoqueInsuficienteException.class)
     public ResponseEntity<String> handleEstoqueInsuficienteException(EstoqueInsuficienteException ex) {
-     return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(ex.getMessage());
+     return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
     }
 
     @ExceptionHandler(EntradasNaoLocalizadasException.class)

@@ -2,10 +2,11 @@ package br.com.estoque.dto.request;
 
 import java.time.LocalDate;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import br.com.estoque.model.enums.CategoriaProdutos;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.FutureOrPresent;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 
 public record ProdutoUpdateDTO(
 
@@ -23,7 +24,8 @@ public record ProdutoUpdateDTO(
 
         @Min(value = 0, message = "Quantidade mínima não pode ser negativa") @Max(value = 10000, message = "Quantidade máxima não pode ser superior a 10000") Integer quantidadeMaxima,
 
-        @FutureOrPresent(message = "Data de validade deve ser hoje ou no futuro") @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy") LocalDate dataValidade,
+        @FutureOrPresent(message = "Data de validade deve ser hoje ou no futuro")
+        LocalDate dataValidade,
 
         CategoriaProdutos categoria
 

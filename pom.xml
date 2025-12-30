@@ -164,6 +164,8 @@
 	</dependencies>
 
 	<build>
+
+		<finalName>estoquemei</finalName>
 		<plugins>
 			
 			<plugin>

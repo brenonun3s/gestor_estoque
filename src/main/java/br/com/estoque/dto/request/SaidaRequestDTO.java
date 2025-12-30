@@ -1,10 +1,10 @@
 package br.com.estoque.dto.request;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import br.com.estoque.model.entity.Produto;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -13,8 +13,11 @@ import jakarta.validation.constraints.PastOrPresent;
 
 public record SaidaRequestDTO(
 
- @NotNull(message = "SKU do produto para registrar saída é obrigatório") 
- Produto produto,
+ @NotNull(message = "ID do produto para registrar saída é obrigatório")
+ UUID produtoId,
+
+ @NotBlank(message = "SKU do produto para registrar saída é obrigatório") 
+ String produto,
 
  @NotNull
  @Min(value = 1, message = "Mínimo para registrar saída é de 1")
